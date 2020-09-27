@@ -1,0 +1,43 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": "airbnb",
+  "rules": {
+    "arrow-parens": "off",
+    "comma-dangle": "off",
+    "function-paren-newline": "off",
+    "max-len": [
+      1,
+      120
+    ],
+    "no-param—reassign": "off",
+    "react/require-default—props": "off",
+    "quotes": "off",
+    "react/prop-types": "off",
+    "react/jsx-first-prop-new-line": [
+      "error",
+      "multiline-multiprop"
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": {
+          "multiline": true
+        }
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".jsx"
+        ]
+      }
+    ]
+  }
+}

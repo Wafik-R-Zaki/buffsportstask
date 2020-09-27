@@ -1,0 +1,22 @@
+.fontStyle{
+  color: firebrick;
+}
+
+.paper {
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.fixedHeight {
+  height: 400px
+}
+
+.backdrop {
+z-index: 1 !important;
+}
+
+.card{
+  width: 100%;
+}
