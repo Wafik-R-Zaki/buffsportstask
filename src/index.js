@@ -6,10 +6,7 @@ import { Provider } from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import App from "./app";
 import rootReducer from './reducers';
-/* const Hello = (msg) => {
-    console.log("hello world!!");
-}
-*/
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

@@ -14,7 +14,7 @@ const FetchAPI = ({ url, children }) => {
     setIsLoading(true);
     get(url).then(
       (response) => {
-        console.log(response);
+        // console.log(response);
         setIsLoading(false);
         setData(response.data);
       })

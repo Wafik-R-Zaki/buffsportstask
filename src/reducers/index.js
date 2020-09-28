@@ -17,7 +17,7 @@ function rootReducer(state = intialState, action) {
   }
   if (action.type === UPDATE_ANSWER_VALUE) {
     const answers = state.SelectedQuestion.questionAnswers.map((item) => {
-      if (item.ansId == action.payload.ansId) {
+      if (item.ansId === action.payload.ansId) {
         return { ...item, ...action.payload };
       }
 

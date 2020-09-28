@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Checkbox, Paper, Button, List, ListItem, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-// import Axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SetSelectedQuestion, UpdateAnswerValue } from "../../actions";
 import style from './AddQuestion.scss';
 import Title from '../../Utilities/UI/Title';
 
-function AddQuestion({ onAddQuestion }) {
+function AddQuestion({ question }) {
   const dispatch = useDispatch();
-  const question = useSelector(state => state.SelectedQuestion);
-  // const [question, setQuestion] = useState({ ...editQuestion });
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const total = question.questionAnswers.length;
@@ -34,24 +31,11 @@ function AddQuestion({ onAddQuestion }) {
     dispatch(SetSelectedQuestion(newVal));
   };
   const handleCheckChange = (e) => {
-    /* if (e.target.checked) {
-      selectedRoles = [...question.questionAnswers, e.target.value];
-    } else {
-      selectedRoles = question.questionAnswers.filter((value) => value !== e.target.value);
-    } */
-
     if (!checkValidation(e.target.checked)) { return; }
-
-    /* const selectedAnswer = question.questionAnswers.find((answer) => answer.ansId == e.target.value);
-    selectedAnswer.isCorrect = e.target.checked;
-    const newQuestion = { ...question }; */
     dispatch(UpdateAnswerValue({ ansId: e.target.value, isCorrect: e.target.checked }));
   };
 
   const handleAnswersChange = (e) => {
-    /* const selectedAnswer = question.questionAnswers.find((answer) => answer.ansId == e.target.id);
-    selectedAnswer.answer = e.target.value;
-    const newQuestion = { ...question }; */
     dispatch(UpdateAnswerValue({ ansId: e.target.id, answer: e.target.value }));
   };
 
@@ -96,10 +80,10 @@ function AddQuestion({ onAddQuestion }) {
             <List>
               {question.questionAnswers.map((answer) => (
                 <ListItem key={answer.ansId}>
-                  <Grid container xs={12}>
+                  <Grid container>
                     <Grid item xs={10}>
                       <TextField
-                        id={answer.ansId}
+                        id={`${answer.ansId}`}
                         variant="outlined"
                         value={answer.answer}
                         size="small"
@@ -118,7 +102,7 @@ function AddQuestion({ onAddQuestion }) {
             </List>
           </Grid>
           <Grid xs={12} item>
-            <Button variant="contained" color="primary" disabled={!validateForm} onClick={() => { onAddQuestion(question); }}>
+            <Button id="btnSave" variant="contained" color="primary" disabled={!validateForm} onClick={() => { }}>
               Save Question
             </Button>
           </Grid>
