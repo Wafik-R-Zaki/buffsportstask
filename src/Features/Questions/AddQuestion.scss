@@ -16,3 +16,17 @@ $labelColor :blue;
 .field{
   width: 100%;
 }
+
+.hoverClass:hover .hidebtn {
+  display: inline-flex;
+  margin-top: 5px;
+}
+.hoverClass .hidebtn {
+  display: none;
+}
+
+
+.largeIcon {
+  width: 60;
+  height: 60;
+}

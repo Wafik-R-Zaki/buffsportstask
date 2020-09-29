@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle }
   from '@material-ui/core';
 
-export default function ConfirmDialog({ open, handleClose }) {
+export default function ConfirmDialog({ open, handleClose, message }) {
   return (
     <Dialog
       open={open}
@@ -13,7 +13,7 @@ export default function ConfirmDialog({ open, handleClose }) {
       <DialogTitle id="alert-dialog-title">Confirm Delete</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete this question?
+          {message}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

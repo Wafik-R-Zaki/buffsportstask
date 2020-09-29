@@ -14,7 +14,7 @@ const outerTheme = createMuiTheme({
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { Title: "Complete Courses" };
+    this.state = { Title: "SPORT BUFF" };
   }
 
   render() {

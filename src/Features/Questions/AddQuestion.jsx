@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { Grid, TextField, Checkbox, Paper, Button, List, ListItem, Snackbar } from '@material-ui/core';
+import {
+  Grid, TextField, Checkbox, Paper, Button, List, ListItem, Typography,
+  IconButton, Tooltip, Snackbar
+} from '@material-ui/core';
+import { AddCircleSharp, DeleteForever } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
 import { useDispatch } from 'react-redux';
 import { SetSelectedQuestion, UpdateAnswerValue } from "../../actions";
 import style from './AddQuestion.scss';
 import Title from '../../Utilities/UI/Title';
+import ConfirmDialog from './confirmAlert';
+import AddAnswerDialog from './addNewAnswer';
 
+const confirmMessage = "Are you sure you want to delete this answer?";
 function AddQuestion({ question }) {
   const dispatch = useDispatch();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [open, setOpen] = React.useState(false);
+  const [openNewAnswer, setOpenNewAnswer] = React.useState(false);
+
   const total = question.questionAnswers.length;
   const incorrect = question.questionAnswers.filter((value) => !value.isCorrect).length;
   const hasAnyEmptyAnswers = question.questionAnswers.some((value) => !value.answer);
+
   const checkValidation = (isChecked) => {
     if (isChecked && incorrect === 1) {
       setSnackbarMessage("you must have at least one incorrect answer!");
@@ -53,6 +64,15 @@ function AddQuestion({ question }) {
           {snackbarMessage}
         </Alert>
       </Snackbar>
+      <ConfirmDialog
+        open={open}
+        handleClose={() => setOpen(false)}
+        message={confirmMessage}
+      />
+      <AddAnswerDialog
+        open={openNewAnswer}
+        handleClose={() => setOpenNewAnswer(false)}
+      />
       <Grid item xs={12}>
         <Paper className={`${style.fixedHeight} ${style.paper}`}>
           <Title variant="h6" gutterBottom>
@@ -68,20 +88,54 @@ function AddQuestion({ question }) {
               onChange={handleChange}
               label="Question"
               fullWidth
+              variant="outlined"
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </Grid>
-          <Grid item xs={12} sm={12}>
-            <Title>
-              Answers
-            </Title>
+          <Grid item container>
+            <Grid item xs={10}>
+              <Title>
+                Answers
+              </Title>
+            </Grid>
+            <Grid item xs={2}>
+              <Tooltip title="Add Answer">
+                <IconButton color="primary" size="medium" onClick={() => { setOpenNewAnswer(true); }}>
+                  <AddCircleSharp size="medium" />
+                </IconButton>
+              </Tooltip>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
 
             <List>
+              <listitem>
+                <Grid item container>
+                  <Grid item xs={10}>
+                    <Typography color="primary">
+                      Answer
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography color="primary">
+                      Is Correct
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </listitem>
               {question.questionAnswers.map((answer) => (
-                <ListItem key={answer.ansId}>
+                <ListItem key={answer.ansId} className={style.hoverClass}>
                   <Grid container>
-                    <Grid item xs={10}>
+                    <Grid item xs={1}>
+                      <Tooltip title="Delete" className={style.hidebtn}>
+                        <IconButton color="secondary" size="small" onClick={() => { setOpen(true); }}>
+                          <DeleteForever />
+                        </IconButton>
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={9}>
                       <TextField
                         id={`${answer.ansId}`}
                         variant="outlined"
