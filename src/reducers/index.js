@@ -1,13 +1,18 @@
-import { ADD_QUESTION, FETCH_QUESTIONS_TOP, SET_SELECTED_QUESTION, UPDATE_ANSWER_VALUE } from "../constants/reduxConst";
+import { ADD_QUESTION, FETCH_QUESTIONS_TOP, SET_SELECTED_QUESTION, UPDATE_ANSWER_VALUE, UPDATE_LOADING }
+  from "../constants/reduxConst";
 
 const intialState = {
   QuestionsList: [],
-  SelectedQuestion: {}
+  SelectedQuestion: {},
+  IsLoading: false
 };
 
 function rootReducer(state = intialState, action) {
   if (action.type === ADD_QUESTION) {
     return { QuestionsList: [...state, action.payload] };
+  }
+  if (action.type === UPDATE_LOADING) {
+    return { ...state, IsLoading: action.payload };
   }
   if (action.type === FETCH_QUESTIONS_TOP) {
     return { ...state, QuestionsList: [...action.payload, ...state.QuestionsList] };
