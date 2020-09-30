@@ -10,25 +10,25 @@ const mockStore = createStore(rootReducer, { count: 0 });
 const question = {
   question: "Which of these teams?",
   questionAnswers: [
-    { ansId: 2, answer: "New York Rangers", isCorrect: false },
-    { ansId: 3, answer: "Toronto Maple Leafs", isCorrect: false },
-    { ansId: 4, answer: "Boston Bruins", isCorrect: false },
-    { ansId: 1, answer: "Philadelphia Flyers", isCorrect: true }
+    { ansId: "2", answer: "New York Rangers", isCorrect: false },
+    { ansId: "3", answer: "Toronto Maple Leafs", isCorrect: false },
+    { ansId: "4", answer: "Boston Bruins", isCorrect: false },
+    { ansId: "1", answer: "Philadelphia Flyers", isCorrect: true }
   ]
 };
 const EmptyQuestion = {
   question: "",
   questionAnswers: [
-    { ansId: 2, answer: "New York Rangers", isCorrect: false },
-    { ansId: 1, answer: "Philadelphia Flyers", isCorrect: true }
+    { ansId: "2", answer: "New York Rangers", isCorrect: false },
+    { ansId: "1", answer: "Philadelphia Flyers", isCorrect: true }
   ]
 };
 
 const EmptyAnswer = {
   question: "Which of these teams?",
   questionAnswers: [
-    { ansId: 2, answer: "", isCorrect: false },
-    { ansId: 1, answer: "Philadelphia Flyers", isCorrect: true }
+    { ansId: "2", answer: "", isCorrect: false },
+    { ansId: "1", answer: "Philadelphia Flyers", isCorrect: true }
   ]
 };
 
@@ -51,11 +51,11 @@ describe("<AddQuestion />", () => {
         <AddQuestion question={question} />
       </Provider>);
 
-    const checkbox = wrapper.findWhere((n) => n.prop('type') == 'checkbox' && n.prop('value') === 1).hostNodes();
+    const checkbox = wrapper.findWhere((n) => n.prop('type') == 'checkbox' && n.prop('value') == 1).hostNodes();
     // console.log(checkbox.map((node) => node.html()));
     expect(checkbox.props().checked).toBe(true);
 
-    const unCheckedCheckbox = wrapper.findWhere((n) => n.prop('type') == 'checkbox' && n.prop('value') === 2).hostNodes();
+    const unCheckedCheckbox = wrapper.findWhere((n) => n.prop('type') == 'checkbox' && n.prop('value') == 2).hostNodes();
     expect(unCheckedCheckbox.props().checked).toBe(false);
   });
 
