@@ -20,13 +20,13 @@ $labelColor :blue;
 .hoverClass:hover .hidebtn {
   display: inline-flex;
   margin-top: 5px;
+  min-width: 34px;
 }
 .hoverClass .hidebtn {
   display: none;
 }
 
 
-.largeIcon {
-  width: 60;
-  height: 60;
+.addBtn {
+  margin-top:5px
 }

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import {
-  Grid, TextField, Checkbox, Paper, Button, List, ListItem, Typography,
-  IconButton, Tooltip, Snackbar
-} from '@material-ui/core';
-import { AddCircleSharp, DeleteForever } from '@material-ui/icons';
+import PropTypes from 'prop-types';
+import { Grid, TextField, Checkbox, Paper, Button, List, ListItem, Typography, Snackbar } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useDispatch } from 'react-redux';
 import { SetSelectedQuestion, UpdateAnswerValue } from "../../actions";
@@ -89,29 +86,29 @@ function AddQuestion({ question }) {
               label="Question"
               fullWidth
               variant="outlined"
-              InputProps={{
-                readOnly: true,
-              }}
             />
           </Grid>
-          <Grid item container>
+          <Grid container className={style.addBtn}>
             <Grid item xs={10}>
               <Title>
                 Answers
               </Title>
             </Grid>
             <Grid item xs={2}>
-              <Tooltip title="Add Answer">
-                <IconButton color="primary" size="medium" onClick={() => { setOpenNewAnswer(true); }}>
-                  <AddCircleSharp size="medium" />
-                </IconButton>
-              </Tooltip>
+              <Button
+                color="primary"
+                variant="contained"
+                size="small"
+                onClick={() => { setOpenNewAnswer(true); }}
+              >
+                Add
+              </Button>
             </Grid>
           </Grid>
           <Grid item xs={12}>
 
             <List>
-              <listitem>
+              <ListItem key="headerAnswer">
                 <Grid item container>
                   <Grid item xs={10}>
                     <Typography color="primary">
@@ -124,16 +121,14 @@ function AddQuestion({ question }) {
                     </Typography>
                   </Grid>
                 </Grid>
-              </listitem>
+              </ListItem>
               {question.questionAnswers.map((answer) => (
                 <ListItem key={answer.ansId} className={style.hoverClass}>
                   <Grid container>
                     <Grid item xs={1}>
-                      <Tooltip title="Delete" className={style.hidebtn}>
-                        <IconButton color="secondary" size="small" onClick={() => { setOpen(true); }}>
-                          <DeleteForever />
-                        </IconButton>
-                      </Tooltip>
+                      <Button className={style.hidebtn} color="secondary" variant="contained" size="small" onClick={() => { setOpen(true); }}>
+                        X
+                      </Button>
                     </Grid>
                     <Grid item xs={9}>
                       <TextField
@@ -165,5 +160,18 @@ function AddQuestion({ question }) {
     </>
   );
 }
+
+AddQuestion.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  question: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    questionAnswers: PropTypes.arrayOf(PropTypes.shape({
+      ansId: PropTypes.string.isRequired,
+      answer: PropTypes.string.isRequired,
+      isCorrect: PropTypes.bool.isRequired,
+    })
+    ).isRequired
+  })
+};
 
 export default AddQuestion;
